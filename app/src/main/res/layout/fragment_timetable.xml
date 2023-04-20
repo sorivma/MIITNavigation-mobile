@@ -20,7 +20,7 @@
 
         <View
             android:id="@+id/view"
-            android:layout_width="370dp"
+            android:layout_width="317dp"
             android:layout_height="41dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -33,12 +33,9 @@
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="24sp"
+            android:layout_width="271dp"
+            android:layout_height="26dp"
             android:text=""
-            android:gravity="center"
-            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="@+id/view"
             app:layout_constraintEnd_toEndOf="@+id/view"
             app:layout_constraintStart_toStartOf="@+id/view"

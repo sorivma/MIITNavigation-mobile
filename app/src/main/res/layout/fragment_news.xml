@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context=".NewsFragment">
-    
+
+    <!-- TODO: Update blank fragment layout -->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -14,7 +15,7 @@
 
         <View
             android:id="@+id/view"
-            android:layout_width="370dp"
+            android:layout_width="320dp"
             android:layout_height="41dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -27,12 +28,9 @@
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
+            android:layout_width="271dp"
+            android:layout_height="26dp"
             android:text=""
-            android:textColor="@color/white"
-            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/view"
             app:layout_constraintEnd_toEndOf="@+id/view"
             app:layout_constraintStart_toStartOf="@+id/view"
@@ -40,12 +38,14 @@
             app:layout_constraintVertical_bias="0.533" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycle_view"
             android:layout_width="408dp"
             android:layout_height="614dp"
             android:layout_marginTop="36dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/view" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
