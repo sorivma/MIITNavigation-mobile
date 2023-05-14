@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="miit_blue">#2C489F</color>
     <color name="status_blue">#55A6D3</color>
+    <color name="light_grey">#E3E3EB</color>
 </resources>
