@@ -73,6 +73,8 @@ public class TimetableFragment extends Fragment {
         return view;
     }
 
+    // Убираем начала и концы пар в отделльный класс LessonTime (только хранит информацию о начале,
+    // конце пар). Логику переключения выносим в отдельный класс TimeController
     private Handler handler = new Handler();
     private int[][] intervals = {{8, 30, 9, 50}, {10, 5, 11, 25}, {11, 40, 13, 0}, {13, 45, 15, 5}, {15, 20, 16, 40}, {16, 55, 18, 15}, {18, 30, 19, 50}, {20, 5, 21, 25}};
     private void updateTime() {

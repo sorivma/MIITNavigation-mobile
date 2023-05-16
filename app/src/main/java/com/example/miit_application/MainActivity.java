@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(R.string.news);
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             //Убрать switch
-
             switch (item.getItemId()) {
                 case R.id.news:
                     replaceFragment(new NewsFragment());

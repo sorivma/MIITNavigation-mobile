@@ -102,6 +102,7 @@ public class NewsFragment extends Fragment {
         recyclerView.setAdapter(adapterRV);
     }
 
+    @NonNull
     private ArrayList<NewsModel> loadData() {
         ArrayList<NewsModel> newsModels = new ArrayList<>();
         for (int i = 0; i <= 10; i++) {
