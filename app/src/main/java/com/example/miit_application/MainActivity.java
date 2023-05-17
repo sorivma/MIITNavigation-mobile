@@ -1,20 +1,13 @@
 package com.example.miit_application;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.os.Bundle;
-import android.os.Handler;
-import android.widget.TextView;
-
 import com.example.miit_application.databinding.ActivityMainBinding;
-import com.example.miit_application.model.NewsModel;
-
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
