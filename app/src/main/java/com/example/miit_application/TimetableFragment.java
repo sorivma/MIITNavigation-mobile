@@ -1,36 +1,42 @@
 package com.example.miit_application;
 
 import android.app.Dialog;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.miit_application.model.TimeTableFooterModel;
+import com.example.miit_application.model.TimeTableHeaderModel;
+import com.example.miit_application.model.TimeTableItem;
+import com.google.android.material.button.MaterialButtonToggleGroup;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.zip.Inflater;
 
 public class TimetableFragment extends Fragment {
-    private TextView groupSelectionTextView;
-    //TODO: Change arrayList to responsible object
     private List<String> groupList;
+    private List<TimeTableItem> timeTableItems;
     private Dialog groupSelectionDialog;
 
     @Override
@@ -55,7 +61,7 @@ public class TimetableFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Button groupSelectionTextView = (Button) view.findViewById(R.id.group_selector);
+        Button groupSelectionTextView = view.findViewById(R.id.group_selector);
         groupList = new ArrayList<>();
         groupList.add("УВП-213");
         groupList.add("УВП-212");
@@ -70,8 +76,8 @@ public class TimetableFragment extends Fragment {
 
                     ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
                             R.layout.dialog_item,
-                            R.id.itemTextView
-                            ,groupList);
+                            R.id.itemTextView,
+                            groupList);
 
                     listView.setAdapter(adapter);
                     editText.addTextChangedListener(new TextWatcher() {
@@ -98,6 +104,124 @@ public class TimetableFragment extends Fragment {
                     });
                 }
         );
+
+        MaterialButtonToggleGroup toggleGroup = view.findViewById(R.id.week_selector);
+
+        toggleGroup.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
+            if(isChecked) {
+                Toast toast;
+                if (checkedId == R.id.week_one){
+                    toast = Toast.makeText(getContext(), "first", Toast.LENGTH_LONG);
+                } else {
+                    toast = Toast.makeText(getContext(), "second", Toast.LENGTH_LONG);
+                }
+                toast.show();
+            }
+        });
+
+        timeTableItems = new ArrayList<>();
+        timeTableItems.add(
+                new TimeTableHeaderModel(
+                        "Понедельник",
+                        LocalDate.now().toString()
+                )
+        );
+        timeTableItems.add(
+                new TimeTableFooterModel(
+                        1,
+                        "9:30-10:50",
+                        "Программирование",
+                        "1104",
+                        "Практика",
+                        "Городняков А.И",
+                        "Дутова Е.В"
+                )
+        );
+        timeTableItems.add(
+                new TimeTableHeaderModel(
+                        "Понедельник",
+                        LocalDate.now().toString()
+                )
+        );
+        timeTableItems.add(
+                new TimeTableFooterModel(
+                        1,
+                        "9:30-10:50",
+                        "Программирование",
+                        "1104",
+                        "Практика",
+                        "Городняков А.И",
+                        "Дутова Е.В"
+                )
+        );
+        timeTableItems.add(
+                new TimeTableHeaderModel(
+                        "Понедельник",
+                        LocalDate.now().toString()
+                )
+        );
+        timeTableItems.add(
+                new TimeTableFooterModel(
+                        1,
+                        "9:30-10:50",
+                        "Программирование",
+                        "1104",
+                        "Практика",
+                        "Городняков А.И",
+                        "Дутова Е.В"
+                )
+        );
+        timeTableItems.add(
+                new TimeTableHeaderModel(
+                        "Понедельник",
+                        LocalDate.now().toString()
+                )
+        );
+        timeTableItems.add(
+                new TimeTableFooterModel(
+                        1,
+                        "9:30-10:50",
+                        "Программирование",
+                        "1104",
+                        "Практика",
+                        "Городняков А.И",
+                        "Дутова Е.В"
+                )
+        );
+        timeTableItems.add(
+                new TimeTableHeaderModel(
+                        "Понедельник",
+                        LocalDate.now().toString()
+                )
+        );
+        timeTableItems.add(
+                new TimeTableFooterModel(
+                        1,
+                        "9:30-10:50",
+                        "Программирование",
+                        "1104",
+                        "Практика",
+                        "Городняков А.И",
+                        "Дутова Е.В"
+                )
+        );
+        RecyclerView recyclerView = view.findViewById(R.id.time_table);
+        TimeTableRVAdapter adapter = new TimeTableRVAdapter(timeTableItems);
+        recyclerView.setLayoutManager(new LinearLayoutManager(
+                getContext()
+        ));
+        timeTableItems.add(
+                new TimeTableFooterModel(
+                        1,
+                        "9:30-10:50",
+                        "Программирование",
+                        "1104",
+                        "Практика",
+                        "Городняков А.И",
+                        "Дутова Е.В"
+                )
+        );
+        recyclerView.setAdapter(adapter);
     }
 
     // Убираем начала и концы пар в отделльный класс LessonTime (только хранит информацию о начале,
