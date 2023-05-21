@@ -2,14 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:title="Новости"
         android:icon="@drawable/baseline_newspaper_24"
-        android:id="@+id/news"/>
+        android:id="@+id/newsFragment"/>
     <item android:title="Расписание"
         android:icon="@drawable/baseline_calendar_month_24"
-        android:id="@+id/timetable"/>
+        android:id="@+id/timetableFragment"/>
     <item android:title="Карта"
         android:icon="@drawable/baseline_map_24"
-        android:id="@+id/map"/>
+        android:id="@+id/mapFragment"/>
     <item android:title="Настройки"
         android:icon="@drawable/baseline_settings_24"
-        android:id="@+id/settings"/>
+        android:id="@+id/settingsFragment"/>
 </menu>

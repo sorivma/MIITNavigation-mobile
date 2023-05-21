@@ -51,7 +51,7 @@ public class TimetableFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View newsView = inflater.inflate(R.layout.fragment_timetable, container, false);
-        timeTextView = newsView.findViewById(R.id.textView2);
+        timeTextView = newsView.findViewById(R.id.textView3);
 
         updateTime();
 
@@ -105,19 +105,6 @@ public class TimetableFragment extends Fragment {
                 }
         );
 
-        MaterialButtonToggleGroup toggleGroup = view.findViewById(R.id.week_selector);
-
-        toggleGroup.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
-            if(isChecked) {
-                Toast toast;
-                if (checkedId == R.id.week_one){
-                    toast = Toast.makeText(getContext(), "first", Toast.LENGTH_LONG);
-                } else {
-                    toast = Toast.makeText(getContext(), "second", Toast.LENGTH_LONG);
-                }
-                toast.show();
-            }
-        });
 
         timeTableItems = new ArrayList<>();
         timeTableItems.add(
@@ -131,8 +118,25 @@ public class TimetableFragment extends Fragment {
                         1,
                         "9:30-10:50",
                         "Программирование",
-                        "1104",
-                        "Практика",
+                        "Аудитория 1104",
+                        "Лабораторная работа",
+                        "Городняков А.И",
+                        "Дутова Е.В"
+                )
+        );
+        timeTableItems.add(
+                new TimeTableHeaderModel(
+                        "Понедельник",
+                        LocalDate.now().toString()
+                )
+        );
+        timeTableItems.add(
+                new TimeTableFooterModel(
+                        1,
+                        "9:30-10:50",
+                        "Асинхронное и параллельное программирование",
+                        "Аудитория 1104",
+                        "Лабораторная работа",
                         "Городняков А.И",
                         "Дутова Е.В"
                 )
@@ -148,8 +152,8 @@ public class TimetableFragment extends Fragment {
                         1,
                         "9:30-10:50",
                         "Программирование",
-                        "1104",
-                        "Практика",
+                        "Аудитория 1104",
+                        "Практическая работа",
                         "Городняков А.И",
                         "Дутова Е.В"
                 )
@@ -163,10 +167,10 @@ public class TimetableFragment extends Fragment {
         timeTableItems.add(
                 new TimeTableFooterModel(
                         1,
-                        "9:30-10:50",
-                        "Программирование",
-                        "1104",
-                        "Практика",
+                        "8:30-9:50",
+                        "Асинхронное и параллельное программирование",
+                        "Аудитория 1104",
+                        "Практическая работа",
                         "Городняков А.И",
                         "Дутова Е.В"
                 )
@@ -180,27 +184,10 @@ public class TimetableFragment extends Fragment {
         timeTableItems.add(
                 new TimeTableFooterModel(
                         1,
-                        "9:30-10:50",
-                        "Программирование",
-                        "1104",
-                        "Практика",
-                        "Городняков А.И",
-                        "Дутова Е.В"
-                )
-        );
-        timeTableItems.add(
-                new TimeTableHeaderModel(
-                        "Понедельник",
-                        LocalDate.now().toString()
-                )
-        );
-        timeTableItems.add(
-                new TimeTableFooterModel(
-                        1,
-                        "9:30-10:50",
-                        "Программирование",
-                        "1104",
-                        "Практика",
+                        "8:30-9:50",
+                        "Асинхронное и параллельное программирование",
+                        "Аудитория 1104",
+                        "Лекция",
                         "Городняков А.И",
                         "Дутова Е.В"
                 )
@@ -212,11 +199,11 @@ public class TimetableFragment extends Fragment {
         ));
         timeTableItems.add(
                 new TimeTableFooterModel(
-                        1,
-                        "9:30-10:50",
+                        2,
+                        "10:05-11:25",
                         "Программирование",
-                        "1104",
-                        "Практика",
+                        "Аудитория 1104",
+                        "Практическая работа",
                         "Городняков А.И",
                         "Дутова Е.В"
                 )

@@ -1,56 +1,27 @@
 package com.example.miit_application;
 
+import static androidx.navigation.ui.ActivityKt.setupActionBarWithNavController;
+import static androidx.navigation.ui.BottomNavigationViewKt.setupWithNavController;
 import android.os.Bundle;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
-import com.example.miit_application.databinding.ActivityMainBinding;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.AppBarConfiguration;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
-
-    ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-        replaceFragment(new NewsFragment());
-        getSupportActionBar().setTitle(R.string.news);
-        binding.bottomNavigationView.setOnItemSelectedListener(item -> {
-            //Убрать switch
-            switch (item.getItemId()) {
-                case R.id.news:
-                    replaceFragment(new NewsFragment());
-                    //Переносишь все title в R.string
-                    getSupportActionBar().setTitle(R.string.news);
-                    break;
-                case R.id.timetable:
-                    replaceFragment(new TimetableFragment());
-                    getSupportActionBar().setTitle(R.string.timetable);
-                    break;
-                case R.id.map:
-                    replaceFragment(new MapFragment());
-                    getSupportActionBar().setTitle(R.string.map);
-                    break;
-                case R.id.settings:
-                    replaceFragment(new SettingsFragment());
-                    getSupportActionBar().setTitle(R.string.settings);
-                    break;
-            }
-            return true;
-        });
+        setContentView(R.layout.activity_main);
 
-    }
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        NavController navController = navHostFragment.getNavController();
+        setupWithNavController(bottomNavigationView, navController);
 
-
-    private void replaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame_layout, fragment);
-        fragmentTransaction.commit();
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(R.id.newsFragment, R.id.timetableFragment, R.id.mapFragment, R.id.settingsFragment).build();
+        setupActionBarWithNavController(this, navController, appBarConfiguration);
     }
 }
