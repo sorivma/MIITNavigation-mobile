@@ -1,6 +1,8 @@
 package com.example.miit_application.data.model;
 
 import androidx.room.ColumnInfo;
+import androidx.room.Dao;
+import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
@@ -10,17 +12,17 @@ import com.example.miit_application.screens.timetable.TimeTableItem;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-@Entity(tableName = "lesson_table"
-        , foreignKeys = {
+@Entity(tableName = "lesson_table", foreignKeys = {
         @ForeignKey(
-                entity = Day.class,
-                parentColumns = "id",
-                childColumns = "day_id"
+                parentColumns = "day_id",
+                childColumns = "day_id",
+                entity = Day.class
         )
 })
 public class Lesson extends TimeTableItem {
     @Expose
     @PrimaryKey
+    @ColumnInfo(name = "lesson_id")
     private Long id;
     @SerializedName("lesson_number")
     @Expose
@@ -44,15 +46,12 @@ public class Lesson extends TimeTableItem {
     @Expose
     private String secondTeacher;
 
-    @SerializedName("day_id")
-    @Expose
-    @ColumnInfo(name = "day_id", index = true)
-    private Long dayId;
+    @ColumnInfo(name = "day_id")
+    private Long day_id;
 
-    @SerializedName("group_id")
+    @SerializedName("week_odd")
     @Expose
-    @ColumnInfo(name = "group_id")
-    private Long groupId;
+    private boolean oddWeek;
 
     @Ignore
     public Lesson(int number,
@@ -71,16 +70,7 @@ public class Lesson extends TimeTableItem {
         this.secondTeacher = secondTeacher;
     }
 
-    public Lesson(Long id,
-                  int number,
-                  String startEndTiming,
-                  String lessonName,
-                  String auditoryNumber,
-                  String lessonType,
-                  String firstTeacher,
-                  String secondTeacher,
-                  Long dayId,
-                  Long groupId) {
+    public Lesson(Long id, int number, String startEndTiming, String lessonName, String auditoryNumber, String lessonType, String firstTeacher, String secondTeacher, Long day_id, boolean oddWeek) {
         this.id = id;
         this.number = number;
         this.startEndTiming = startEndTiming;
@@ -89,9 +79,14 @@ public class Lesson extends TimeTableItem {
         this.lessonType = lessonType;
         this.firstTeacher = firstTeacher;
         this.secondTeacher = secondTeacher;
-        this.dayId = dayId;
-        this.groupId = groupId;
+        this.day_id = day_id;
+        this.oddWeek = oddWeek;
     }
+
+    public boolean isOddWeek() {
+        return oddWeek;
+    }
+
 
     public int getNumber() {
         return number;
@@ -125,12 +120,16 @@ public class Lesson extends TimeTableItem {
         return id;
     }
 
-    public Long getDayId() {
-        return dayId;
+    public void setDay_id(Long day_id) {
+        this.day_id = day_id;
     }
 
-    public Long getGroupId() {
-        return groupId;
+    public void setOddWeek(boolean oddWeek) {
+        this.oddWeek = oddWeek;
+    }
+
+    public Long getDay_id() {
+        return day_id;
     }
 
     public void setId(Long id) {
@@ -164,15 +163,6 @@ public class Lesson extends TimeTableItem {
     public void setSecondTeacher(String secondTeacher) {
         this.secondTeacher = secondTeacher;
     }
-
-    public void setDayId(Long dayId) {
-        this.dayId = dayId;
-    }
-
-    public void setGroupId(Long groupId) {
-        this.groupId = groupId;
-    }
-
     @Override
     public int getViewType() {
         return 1;

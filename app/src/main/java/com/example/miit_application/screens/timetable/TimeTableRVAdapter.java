@@ -11,15 +11,28 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.miit_application.R;
 import com.example.miit_application.data.model.Lesson;
 import com.example.miit_application.data.model.Day;
+import com.example.miit_application.data.model.News;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TimeTableRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private final List<TimeTableItem> timeTableItems;
+    private List<TimeTableItem> timeTableItems = new ArrayList<>();
 
-    public TimeTableRVAdapter(List<TimeTableItem> timeTableItems) {
-        this.timeTableItems = timeTableItems;
+    public TimeTableRVAdapter() {
+
+    }
+
+    public void updateNewsList(final List<TimeTableItem> newItems) {
+        if (timeTableItems != null) {
+            this.timeTableItems.clear();
+            this.timeTableItems.addAll(newItems);
+            notifyDataSetChanged();
+        } else {
+            this.timeTableItems = newItems;
+        }
+
     }
 
     @Override

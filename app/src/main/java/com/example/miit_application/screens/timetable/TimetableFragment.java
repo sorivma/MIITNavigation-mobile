@@ -17,10 +17,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.miit_application.R;
+import com.example.miit_application.data.model.Group;
 import com.example.miit_application.data.model.Lesson;
 import com.example.miit_application.data.model.Day;
 
@@ -28,11 +31,13 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TimetableFragment extends Fragment {
     private List<String> groupList;
-    private List<TimeTableItem> timeTableItems;
+    private TimeTableViewModel timeTableViewModel;
     private Dialog groupSelectionDialog;
+    private boolean isCurWeekOdd = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,13 +61,22 @@ public class TimetableFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Button groupSelectionTextView = view.findViewById(R.id.group_selector);
-        groupList = new ArrayList<>();
-        groupList.add("УВП-213");
-        groupList.add("УВП-212");
-        groupList.add("УВП-211");
+        Button weekSelector = view.findViewById(R.id.week_selector);
+        weekSelector.setOnClickListener(v -> {
+            if (isCurWeekOdd) {
+                isCurWeekOdd = false;
+                weekSelector.setText("1 Неделя");
+            } else {
+                isCurWeekOdd = true;
+                weekSelector.setText("2 Неделя");
+            }
+        });
 
-        groupSelectionTextView.setOnClickListener(v -> {
+        Button groupSelector = view.findViewById(R.id.group_selector);
+        groupList = new ArrayList<>();
+
+
+        groupSelector.setOnClickListener(v -> {
                     groupSelectionDialog = new Dialog(getContext());
                     groupSelectionDialog.setContentView(R.layout.dialog_searchable_spinner);
                     groupSelectionDialog.show();
@@ -75,6 +89,19 @@ public class TimetableFragment extends Fragment {
                             groupList);
 
                     listView.setAdapter(adapter);
+
+                    timeTableViewModel = new ViewModelProvider(this)
+                            .get(TimeTableViewModel.class);
+                    final Observer<List<Group>> groupsObserver = groups -> {
+                        adapter.clear();
+                        adapter.addAll(
+                                groups.stream().
+                                        map(Group::getName).collect(Collectors.toList()));
+                        adapter.notifyDataSetChanged();
+                    };
+
+                    timeTableViewModel.getGroupLiveData().observe(getViewLifecycleOwner(),
+                            groupsObserver);
                     editText.addTextChangedListener(new TextWatcher() {
                         @Override
                         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -93,116 +120,19 @@ public class TimetableFragment extends Fragment {
                     });
 
                     listView.setOnItemClickListener((parent, view1, position, id) -> {
-                        groupSelectionTextView.setText(adapter.getItem(position));
+                        groupSelector.setText(adapter.getItem(position));
 
                         groupSelectionDialog.dismiss();
                     });
                 }
         );
 
-
-        timeTableItems = new ArrayList<>();
-        timeTableItems.add(
-                new Day(
-                        "Понедельник",
-                        LocalDate.now().toString()
-                )
-        );
-        timeTableItems.add(
-                new Lesson(
-                        1,
-                        "9:30-10:50",
-                        "Программирование",
-                        "Аудитория 1104",
-                        "Лабораторная работа",
-                        "Городняков А.И",
-                        "Дутова Е.В"
-                )
-        );
-        timeTableItems.add(
-                new Day(
-                        "Понедельник",
-                        LocalDate.now().toString()
-                )
-        );
-        timeTableItems.add(
-                new Lesson(
-                        1,
-                        "9:30-10:50",
-                        "Асинхронное и параллельное программирование",
-                        "Аудитория 1104",
-                        "Лабораторная работа",
-                        "Городняков А.И",
-                        "Дутова Е.В"
-                )
-        );
-        timeTableItems.add(
-                new Day(
-                        "Понедельник",
-                        LocalDate.now().toString()
-                )
-        );
-        timeTableItems.add(
-                new Lesson(
-                        1,
-                        "9:30-10:50",
-                        "Программирование",
-                        "Аудитория 1104",
-                        "Практическая работа",
-                        "Городняков А.И",
-                        "Дутова Е.В"
-                )
-        );
-        timeTableItems.add(
-                new Day(
-                        "Понедельник",
-                        LocalDate.now().toString()
-                )
-        );
-        timeTableItems.add(
-                new Lesson(
-                        1,
-                        "8:30-9:50",
-                        "Асинхронное и параллельное программирование",
-                        "Аудитория 1104",
-                        "Практическая работа",
-                        "Городняков А.И",
-                        "Дутова Е.В"
-                )
-        );
-        timeTableItems.add(
-                new Day(
-                        "Понедельник",
-                        LocalDate.now().toString()
-                )
-        );
-        timeTableItems.add(
-                new Lesson(
-                        1,
-                        "8:30-9:50",
-                        "Асинхронное и параллельное программирование",
-                        "Аудитория 1104",
-                        "Лекция",
-                        "Городняков А.И",
-                        "Дутова Е.В"
-                )
-        );
+        List<TimeTableItem> timeTableItems = new ArrayList<>();
         RecyclerView recyclerView = view.findViewById(R.id.time_table);
-        TimeTableRVAdapter adapter = new TimeTableRVAdapter(timeTableItems);
+        TimeTableRVAdapter adapter = new TimeTableRVAdapter();
         recyclerView.setLayoutManager(new LinearLayoutManager(
                 getContext()
         ));
-        timeTableItems.add(
-                new Lesson(
-                        2,
-                        "10:05-11:25",
-                        "Программирование",
-                        "Аудитория 1104",
-                        "Практическая работа",
-                        "Городняков А.И",
-                        "Дутова Е.В"
-                )
-        );
         recyclerView.setAdapter(adapter);
     }
 

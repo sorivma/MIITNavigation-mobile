@@ -2,19 +2,13 @@ package com.example.miit_application.data.model;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-@Entity(tableName = "group_table", foreignKeys = {
-        @ForeignKey(
-                entity = Lesson.class,
-                parentColumns = "id",
-                childColumns = "group_id"
-        )})
+@Entity(tableName = "group_table")
 public class Group {
     @Expose
     @PrimaryKey
