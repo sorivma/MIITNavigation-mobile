@@ -7,22 +7,22 @@
 
     <fragment
         android:id="@+id/newsFragment"
-        android:name="com.example.miit_application.NewsFragment"
+        android:name="com.example.miit_application.screens.news.NewsFragment"
         android:label="Новости"
         tools:layout="@layout/fragment_news" />
     <fragment
         android:id="@+id/timetableFragment"
-        android:name="com.example.miit_application.TimetableFragment"
-        android:label="Раcписание"
+        android:name="com.example.miit_application.screens.timetable.TimetableFragment"
+        android:label="Раписание"
         tools:layout="@layout/fragment_timetable" />
     <fragment
         android:id="@+id/mapFragment"
-        android:name="com.example.miit_application.MapFragment"
+        android:name="com.example.miit_application.screens.map.MapFragment"
         android:label="Карта"
         tools:layout="@layout/fragment_map" />
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.example.miit_application.SettingsFragment"
+        android:name="com.example.miit_application.screens.settings.SettingsFragment"
         android:label="Настройки"
         tools:layout="@layout/fragment_settings" />
 </navigation>

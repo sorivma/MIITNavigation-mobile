@@ -1,4 +1,4 @@
-package com.example.miit_application;
+package com.example.miit_application.screens.timetable;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,9 +8,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.miit_application.model.TimeTableFooterModel;
-import com.example.miit_application.model.TimeTableHeaderModel;
-import com.example.miit_application.model.TimeTableItem;
+import com.example.miit_application.R;
+import com.example.miit_application.data.model.Lesson;
+import com.example.miit_application.data.model.Day;
 
 import java.util.List;
 
@@ -48,14 +48,14 @@ public class TimeTableRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         switch (holder.getItemViewType()){
             case 0:
-                TimeTableHeaderModel headerModel = (TimeTableHeaderModel) timeTableItems
+                Day headerModel = (Day) timeTableItems
                         .get(position);
                 HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
                 headerViewHolder.dayName.setText(headerModel.getDayName());
-                headerViewHolder.date.setText(headerModel.getDate());
+                headerViewHolder.date.setText(headerModel.getDate().toString());
                 break;
             case 1:
-                TimeTableFooterModel footerModel = (TimeTableFooterModel) timeTableItems
+                Lesson footerModel = (Lesson) timeTableItems
                         .get(position);
                 FooterViewHolder footerViewHolder = (FooterViewHolder) holder;
                 footerViewHolder.lessonNumber.setText(
@@ -105,5 +105,7 @@ public class TimeTableRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             firstTeacher = itemView.findViewById(R.id.teacher_1);
             secondTeacher = itemView.findViewById(R.id.teacher_2);
         }
+
+
     }
 }
