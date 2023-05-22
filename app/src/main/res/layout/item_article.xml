@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="360dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/viewshape2"
         android:orientation="vertical"
@@ -53,7 +53,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginBottom="18dp"
                 android:background="@drawable/viewshape3"
-                android:backgroundTint="#5D70AC"
+                android:backgroundTint="@color/miit_blue"
                 android:text="13/02/2003"
                 android:textAlignment="center"
                 android:textColor="@color/white"

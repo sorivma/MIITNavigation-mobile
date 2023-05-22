@@ -13,7 +13,7 @@
     <fragment
         android:id="@+id/timetableFragment"
         android:name="com.example.miit_application.TimetableFragment"
-        android:label="Раписание"
+        android:label="Раcписание"
         tools:layout="@layout/fragment_timetable" />
     <fragment
         android:id="@+id/mapFragment"
