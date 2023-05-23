@@ -17,5 +17,5 @@ public interface NewsDao {
     void insertNews(News news);
 
     @Query("SELECT * FROM news_table")
-    LiveData<List<News>> getNews();
+    List<News> getNews();
 }

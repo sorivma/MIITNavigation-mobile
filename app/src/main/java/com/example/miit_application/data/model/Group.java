@@ -2,26 +2,14 @@ package com.example.miit_application.data.model;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
-
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 
 @Entity(tableName = "group_table")
 public class Group {
-    @Expose
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "group_id")
     private Long id;
-    @SerializedName("group_name")
-    @Expose
     private String name;
-
-    @Ignore
-    public Group(String name) {
-        this.name = name;
-    }
 
     public Group(Long id, String name) {
         this.id = id;

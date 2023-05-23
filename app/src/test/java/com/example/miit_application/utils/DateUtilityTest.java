@@ -20,9 +20,13 @@ public class DateUtilityTest extends TestCase {
     }
 
     public void testFindDatesInWeek() {
-        List<LocalDate> dateList = DateUtility.findDatesInWeek(LocalDate.now());
+        List<LocalDate> dateList = DateUtility.findDatesInWeekFloor(LocalDate.now());
         for (LocalDate date : dateList) {
             System.out.println(date);
         }
+    }
+
+    public void testIsOdd(){
+        System.out.println(DateUtility.isOdd(LocalDate.now()));
     }
 }

@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.miit_application.data.database.DataBase;
 import com.example.miit_application.data.model.News;
@@ -18,7 +19,7 @@ public class NewsViewModel extends AndroidViewModel {
     public NewsViewModel(@NonNull Application application) {
         super(application);
         dataBase = DataBase.getInstance(application);
-        newsLiveData = dataBase.getNewsDao().getNews();
+        newsLiveData = new MutableLiveData<>(dataBase.getNewsDao().getNews());
     }
 
     public LiveData<List<News>> getNewsLiveData(){

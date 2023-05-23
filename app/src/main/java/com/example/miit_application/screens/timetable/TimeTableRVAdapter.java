@@ -9,9 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.miit_application.R;
-import com.example.miit_application.data.model.Lesson;
 import com.example.miit_application.data.model.Day;
-import com.example.miit_application.data.model.News;
+import com.example.miit_application.data.model.Lesson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +51,10 @@ public class TimeTableRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 View footerView = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.item_timetable_class, parent, false);
                 return new FooterViewHolder(footerView);
+            case 2:
+                View noLessonsPlaceHolder = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_timetable_no_classes,parent,false);
+                return new NoLessonViewHolder(noLessonsPlaceHolder);
             default:
                 throw new IllegalArgumentException("ViewType is not supported");
         }
@@ -65,7 +68,7 @@ public class TimeTableRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                         .get(position);
                 HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
                 headerViewHolder.dayName.setText(headerModel.getDayName());
-                headerViewHolder.date.setText(headerModel.getDate().toString());
+                headerViewHolder.date.setText(headerModel.getDate());
                 break;
             case 1:
                 Lesson footerModel = (Lesson) timeTableItems
@@ -77,8 +80,13 @@ public class TimeTableRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 footerViewHolder.lessonName.setText(footerModel.getLessonName());
                 footerViewHolder.auditory.setText(footerModel.getAuditoryNumber());
                 footerViewHolder.lessonType.setText(footerModel.getLessonType());
-                footerViewHolder.firstTeacher.setText(footerModel.getFirstTeacher());
-                footerViewHolder.secondTeacher.setText(footerModel.getSecondTeacher());
+                footerViewHolder.firstTeacher.setText(footerModel.getSecondTeacher());
+                if (footerModel.getSecondTeacher() == null){
+                    footerViewHolder.firstTeacher.setBackgroundColor(View.INVISIBLE);
+                }
+                footerViewHolder.secondTeacher.setText(footerModel.getFirstTeacher());
+                break;
+            case 2:
                 break;
             default:
                 throw new IllegalArgumentException("View type is not supported");
@@ -120,5 +128,11 @@ public class TimeTableRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
 
 
+    }
+
+    private class NoLessonViewHolder extends RecyclerView.ViewHolder {
+        public NoLessonViewHolder(@NonNull View itemView) {
+            super(itemView);
+        }
     }
 }

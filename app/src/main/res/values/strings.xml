@@ -4,6 +4,6 @@
     <string name="news">Новости</string>
     <string name="timetable">Расписание</string>
     <string name="settings">Настройки</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="saved_group" />
 
 </resources>

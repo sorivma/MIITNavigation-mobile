@@ -1,8 +1,6 @@
 package com.example.miit_application.data.model;
 
 import androidx.room.ColumnInfo;
-import androidx.room.Dao;
-import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
@@ -12,16 +10,10 @@ import com.example.miit_application.screens.timetable.TimeTableItem;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-@Entity(tableName = "lesson_table", foreignKeys = {
-        @ForeignKey(
-                parentColumns = "day_id",
-                childColumns = "day_id",
-                entity = Day.class
-        )
-})
+@Entity(tableName = "lesson_table")
 public class Lesson extends TimeTableItem {
     @Expose
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "lesson_id")
     private Long id;
     @SerializedName("lesson_number")
@@ -46,13 +38,10 @@ public class Lesson extends TimeTableItem {
     @Expose
     private String secondTeacher;
 
-    @ColumnInfo(name = "day_id")
-    private Long day_id;
-
-    @SerializedName("week_odd")
+    @SerializedName("day_id")
     @Expose
-    private boolean oddWeek;
-
+    @ColumnInfo(name = "day_id")
+    private Long dayId;
     @Ignore
     public Lesson(int number,
                   String startEndTiming,
@@ -60,7 +49,8 @@ public class Lesson extends TimeTableItem {
                   String auditoryNumber,
                   String lessonType,
                   String firstTeacher,
-                  String secondTeacher) {
+                  String secondTeacher
+    ) {
         this.number = number;
         this.startEndTiming = startEndTiming;
         this.lessonName = lessonName;
@@ -70,7 +60,7 @@ public class Lesson extends TimeTableItem {
         this.secondTeacher = secondTeacher;
     }
 
-    public Lesson(Long id, int number, String startEndTiming, String lessonName, String auditoryNumber, String lessonType, String firstTeacher, String secondTeacher, Long day_id, boolean oddWeek) {
+    public Lesson(Long id, int number, String startEndTiming, String lessonName, String auditoryNumber, String lessonType, String firstTeacher, String secondTeacher, Long dayId) {
         this.id = id;
         this.number = number;
         this.startEndTiming = startEndTiming;
@@ -79,33 +69,23 @@ public class Lesson extends TimeTableItem {
         this.lessonType = lessonType;
         this.firstTeacher = firstTeacher;
         this.secondTeacher = secondTeacher;
-        this.day_id = day_id;
-        this.oddWeek = oddWeek;
+        this.dayId = dayId;
     }
 
-    public boolean isOddWeek() {
-        return oddWeek;
+    public Long getId() {
+        return id;
     }
-
 
     public int getNumber() {
         return number;
     }
 
-    public String getLessonName() {
-        return lessonName;
-    }
-
-    public String getFirstTeacher() {
-        return firstTeacher;
-    }
-
-    public String getSecondTeacher() {
-        return secondTeacher;
-    }
-
     public String getStartEndTiming() {
         return startEndTiming;
+    }
+
+    public String getLessonName() {
+        return lessonName;
     }
 
     public String getAuditoryNumber() {
@@ -116,20 +96,16 @@ public class Lesson extends TimeTableItem {
         return lessonType;
     }
 
-    public Long getId() {
-        return id;
+    public String getFirstTeacher() {
+        return firstTeacher;
     }
 
-    public void setDay_id(Long day_id) {
-        this.day_id = day_id;
+    public String getSecondTeacher() {
+        return secondTeacher;
     }
 
-    public void setOddWeek(boolean oddWeek) {
-        this.oddWeek = oddWeek;
-    }
-
-    public Long getDay_id() {
-        return day_id;
+    public Long getDayId() {
+        return dayId;
     }
 
     public void setId(Long id) {
@@ -163,6 +139,11 @@ public class Lesson extends TimeTableItem {
     public void setSecondTeacher(String secondTeacher) {
         this.secondTeacher = secondTeacher;
     }
+
+    public void setDayId(Long dayId) {
+        this.dayId = dayId;
+    }
+
     @Override
     public int getViewType() {
         return 1;

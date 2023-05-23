@@ -1,6 +1,8 @@
 package com.example.miit_application.screens.timetable;
 
 import android.app.Dialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -23,11 +25,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.miit_application.R;
-import com.example.miit_application.data.model.Group;
-import com.example.miit_application.data.model.Lesson;
-import com.example.miit_application.data.model.Day;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +36,8 @@ public class TimetableFragment extends Fragment {
     private TimeTableViewModel timeTableViewModel;
     private Dialog groupSelectionDialog;
     private boolean isCurWeekOdd = false;
+    private String groupSelected;
+    private SharedPreferences sharedPreferences;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,18 +61,37 @@ public class TimetableFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        timeTableViewModel = new ViewModelProvider(this)
+                .get(TimeTableViewModel.class);
+
+        sharedPreferences = this.getActivity()
+                .getPreferences(Context.MODE_PRIVATE);
+
+
         Button weekSelector = view.findViewById(R.id.week_selector);
-        weekSelector.setOnClickListener(v -> {
-            if (isCurWeekOdd) {
-                isCurWeekOdd = false;
+
+        final Observer<Boolean> weekObserver = aBoolean -> {
+            if (!aBoolean) {
                 weekSelector.setText("1 Неделя");
             } else {
-                isCurWeekOdd = true;
                 weekSelector.setText("2 Неделя");
             }
+            timeTableViewModel.updateTimeTableData(aBoolean);
+        };
+
+        timeTableViewModel.getIsOdd().observe(getViewLifecycleOwner(), weekObserver);
+
+        weekSelector.setOnClickListener(v -> {
+            timeTableViewModel.getIsOdd().setValue(Boolean.FALSE.
+                    equals(timeTableViewModel.getIsOdd().getValue()));
         });
 
         Button groupSelector = view.findViewById(R.id.group_selector);
+        groupSelector.setText(
+                sharedPreferences.getString(getString(R.string.saved_group), "Группа")
+        );
+
         groupList = new ArrayList<>();
 
 
@@ -90,13 +109,9 @@ public class TimetableFragment extends Fragment {
 
                     listView.setAdapter(adapter);
 
-                    timeTableViewModel = new ViewModelProvider(this)
-                            .get(TimeTableViewModel.class);
-                    final Observer<List<Group>> groupsObserver = groups -> {
+                    final Observer<List<String>> groupsObserver = groups -> {
                         adapter.clear();
-                        adapter.addAll(
-                                groups.stream().
-                                        map(Group::getName).collect(Collectors.toList()));
+                        adapter.addAll(groups);
                         adapter.notifyDataSetChanged();
                     };
 
@@ -121,19 +136,30 @@ public class TimetableFragment extends Fragment {
 
                     listView.setOnItemClickListener((parent, view1, position, id) -> {
                         groupSelector.setText(adapter.getItem(position));
-
+                        groupSelected = adapter.getItem(position);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString(getString(R.string.saved_group),
+                                adapter.getItem(position));
+                        editor.apply();
                         groupSelectionDialog.dismiss();
                     });
                 }
         );
 
-        List<TimeTableItem> timeTableItems = new ArrayList<>();
+
         RecyclerView recyclerView = view.findViewById(R.id.time_table);
         TimeTableRVAdapter adapter = new TimeTableRVAdapter();
         recyclerView.setLayoutManager(new LinearLayoutManager(
                 getContext()
         ));
         recyclerView.setAdapter(adapter);
+
+        final Observer<List<TimeTableItem>> timeTableItemsObserver = adapter::updateNewsList;
+
+        timeTableViewModel.getTimeTableLiveData().observe(
+                getViewLifecycleOwner(),
+                timeTableItemsObserver
+        );
     }
 
     // Убираем начала и концы пар в отделльный класс LessonTime (только хранит информацию о начале,

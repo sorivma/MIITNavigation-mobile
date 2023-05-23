@@ -12,30 +12,36 @@ import com.google.gson.annotations.SerializedName;
 @Entity(tableName = "day_table")
 public class Day extends TimeTableItem {
     @Expose
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "day_id")
     private Long id;
     @SerializedName("day_name")
     @Expose
     private String dayName;
 
-    @SerializedName("day_date")
-    @Expose
-    @ColumnInfo(name = "date")
+    @Ignore
     private String date;
 
+    @SerializedName("isOdd")
+    @Expose
+    private boolean odd;
+
     @Ignore
-    public Day(String dayName, String date) {
+    public Day(String dayName, boolean odd) {
         this.dayName = dayName;
-        this.date = date;
+        this.odd = odd;
     }
 
-    public Day(Long id, String dayName, String date) {
+
+    public Day(Long id, String dayName, boolean odd) {
         this.id = id;
         this.dayName = dayName;
-        this.date = date;
+        this.odd = odd;
     }
 
+    public Long getId() {
+        return id;
+    }
 
     public String getDayName() {
         return dayName;
@@ -45,8 +51,8 @@ public class Day extends TimeTableItem {
         return date;
     }
 
-    public Long getId() {
-        return id;
+    public boolean getOdd() {
+        return odd;
     }
 
     public void setId(Long id) {
@@ -61,7 +67,9 @@ public class Day extends TimeTableItem {
         this.date = date;
     }
 
-
+    public void setOdd(boolean odd) {
+        this.odd = odd;
+    }
 
     @Override
     public int getViewType() {
