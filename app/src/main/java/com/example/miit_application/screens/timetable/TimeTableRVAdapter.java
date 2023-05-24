@@ -1,5 +1,6 @@
 package com.example.miit_application.screens.timetable;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +19,6 @@ import java.util.List;
 public class TimeTableRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<TimeTableItem> timeTableItems = new ArrayList<>();
-
     public TimeTableRVAdapter() {
 
     }
@@ -55,6 +55,11 @@ public class TimeTableRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 View noLessonsPlaceHolder = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.item_timetable_no_classes,parent,false);
                 return new NoLessonViewHolder(noLessonsPlaceHolder);
+            case 3:
+                View oneTeacherFooter = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_timetable_class_one_teacher, parent,
+                                false);
+                return new OneTeacherViewHolder(oneTeacherFooter);
             default:
                 throw new IllegalArgumentException("ViewType is not supported");
         }
@@ -80,13 +85,23 @@ public class TimeTableRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 footerViewHolder.lessonName.setText(footerModel.getLessonName());
                 footerViewHolder.auditory.setText(footerModel.getAuditoryNumber());
                 footerViewHolder.lessonType.setText(footerModel.getLessonType());
-                footerViewHolder.firstTeacher.setText(footerModel.getSecondTeacher());
-                if (footerModel.getSecondTeacher() == null){
-                    footerViewHolder.firstTeacher.setBackgroundColor(View.INVISIBLE);
-                }
-                footerViewHolder.secondTeacher.setText(footerModel.getFirstTeacher());
+                footerViewHolder.firstTeacher.setText(footerModel.getFirstTeacher());
+                footerViewHolder.secondTeacher.setText(footerModel.getSecondTeacher());
                 break;
             case 2:
+                break;
+            case 3:
+                Lesson footerModelOne = (Lesson) timeTableItems
+                        .get(position);
+                OneTeacherViewHolder oneTeacherViewHolder = (OneTeacherViewHolder) holder;
+                oneTeacherViewHolder.lessonNumber.setText(
+                        String.valueOf(footerModelOne.getNumber())
+                );
+                oneTeacherViewHolder.timing.setText(footerModelOne.getStartEndTiming());
+                oneTeacherViewHolder.lessonName.setText(footerModelOne.getLessonName());
+                oneTeacherViewHolder.auditory.setText(footerModelOne.getAuditoryNumber());
+                oneTeacherViewHolder.lessonName.setText(footerModelOne.getLessonName());
+                oneTeacherViewHolder.firstTeacher.setText(footerModelOne.getFirstTeacher());
                 break;
             default:
                 throw new IllegalArgumentException("View type is not supported");
@@ -98,7 +113,7 @@ public class TimeTableRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         return timeTableItems.size();
     }
 
-    class HeaderViewHolder extends RecyclerView.ViewHolder {
+    static class HeaderViewHolder extends RecyclerView.ViewHolder {
         private TextView dayName;
         private TextView date;
         public HeaderViewHolder(@NonNull View itemView) {
@@ -108,7 +123,7 @@ public class TimeTableRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
     }
 
-    class FooterViewHolder extends RecyclerView.ViewHolder {
+    static class FooterViewHolder extends RecyclerView.ViewHolder {
         private TextView lessonNumber;
         private TextView timing;
         private TextView lessonName;
@@ -130,9 +145,27 @@ public class TimeTableRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     }
 
-    private class NoLessonViewHolder extends RecyclerView.ViewHolder {
+    private static class NoLessonViewHolder extends RecyclerView.ViewHolder {
         public NoLessonViewHolder(@NonNull View itemView) {
             super(itemView);
+        }
+    }
+
+    private static class OneTeacherViewHolder extends RecyclerView.ViewHolder {
+        private TextView lessonNumber;
+        private TextView timing;
+        private TextView lessonName;
+        private TextView auditory;
+        private TextView lessonType;
+        private TextView firstTeacher;
+        public OneTeacherViewHolder(@NonNull View itemView) {
+            super(itemView);
+            lessonNumber = itemView.findViewById(R.id.lesson_number_1);
+            timing = itemView.findViewById(R.id.lesson_timing_1);
+            lessonName = itemView.findViewById(R.id.lesson_name_1);
+            auditory = itemView.findViewById(R.id.auditory_number_1);
+            lessonType = itemView.findViewById(R.id.lesson_type_1);
+            firstTeacher = itemView.findViewById(R.id.teacher_only);
         }
     }
 }

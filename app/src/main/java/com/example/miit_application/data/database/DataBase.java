@@ -17,7 +17,7 @@ import com.example.miit_application.data.model.News;
 
 @Database(entities = {News.class, Lesson.class, Day.class, Group.class}, version = 1, exportSchema = false)
 public abstract class DataBase extends RoomDatabase {
-    private static final String ROOM_DB_NAME = "local_room37";
+    private static final String ROOM_DB_NAME = "local_room43";
     private static DataBase dbInstance;
 
     public static DataBase getInstance(Context appContext){

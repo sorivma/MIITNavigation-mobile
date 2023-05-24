@@ -146,6 +146,9 @@ public class Lesson extends TimeTableItem {
 
     @Override
     public int getViewType() {
+        if (secondTeacher.equals("no_teacher")){
+            return 3;
+        }
         return 1;
     }
 }
