@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,7 +78,7 @@ public class TimetableFragment extends Fragment {
             } else {
                 weekSelector.setText("2 Неделя");
             }
-            timeTableViewModel.updateTimeTableData(aBoolean);
+            timeTableViewModel.updateTimeTableData();
         };
 
         timeTableViewModel.getIsOdd().observe(getViewLifecycleOwner(), weekObserver);
@@ -95,58 +96,6 @@ public class TimetableFragment extends Fragment {
         groupList = new ArrayList<>();
 
 
-        groupSelector.setOnClickListener(v -> {
-                    groupSelectionDialog = new Dialog(getContext());
-                    groupSelectionDialog.setContentView(R.layout.dialog_searchable_spinner);
-                    groupSelectionDialog.show();
-                    EditText editText = groupSelectionDialog.findViewById(R.id.edit_text);
-                    ListView listView = groupSelectionDialog.findViewById(R.id.list_view);
-
-                    ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
-                            R.layout.dialog_item,
-                            R.id.itemTextView,
-                            groupList);
-
-                    listView.setAdapter(adapter);
-
-                    final Observer<List<String>> groupsObserver = groups -> {
-                        adapter.clear();
-                        adapter.addAll(groups);
-                        adapter.notifyDataSetChanged();
-                    };
-
-                    timeTableViewModel.getGroupLiveData().observe(getViewLifecycleOwner(),
-                            groupsObserver);
-                    editText.addTextChangedListener(new TextWatcher() {
-                        @Override
-                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                        }
-
-                        @Override
-                        public void onTextChanged(CharSequence s, int start, int before, int count) {
-                            adapter.getFilter().filter(s);
-                        }
-
-                        @Override
-                        public void afterTextChanged(Editable s) {
-
-                        }
-                    });
-
-                    listView.setOnItemClickListener((parent, view1, position, id) -> {
-                        groupSelector.setText(adapter.getItem(position));
-                        groupSelected = adapter.getItem(position);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString(getString(R.string.saved_group),
-                                adapter.getItem(position));
-                        editor.apply();
-                        groupSelectionDialog.dismiss();
-                    });
-                }
-        );
-
-
         RecyclerView recyclerView = view.findViewById(R.id.time_table);
         TimeTableRVAdapter adapter = new TimeTableRVAdapter();
         recyclerView.setLayoutManager(new LinearLayoutManager(
@@ -159,6 +108,60 @@ public class TimetableFragment extends Fragment {
         timeTableViewModel.getTimeTableLiveData().observe(
                 getViewLifecycleOwner(),
                 timeTableItemsObserver
+        );
+
+        groupSelector.setOnClickListener(v -> {
+                    groupSelectionDialog = new Dialog(getContext());
+                    groupSelectionDialog.setContentView(R.layout.dialog_searchable_spinner);
+                    groupSelectionDialog.getWindow().setLayout(1000, 2000);
+                    groupSelectionDialog.show();
+                    EditText editText = groupSelectionDialog.findViewById(R.id.edit_text);
+                    ListView listView = groupSelectionDialog.findViewById(R.id.list_view);
+
+                    ArrayAdapter<String> groupAdapter = new ArrayAdapter<>(getContext(),
+                            R.layout.dialog_item,
+                            R.id.itemTextView,
+                            groupList);
+
+                    listView.setAdapter(groupAdapter);
+
+                    final Observer<List<String>> groupsObserver = groups -> {
+                        groupAdapter.clear();
+                        groupAdapter.addAll(groups);
+                        groupAdapter.notifyDataSetChanged();
+                    };
+
+                    timeTableViewModel.getGroupLiveData().observe(getViewLifecycleOwner(),
+                            groupsObserver);
+                    editText.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                            groupAdapter.getFilter().filter(s);
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+
+                        }
+                    });
+
+                    listView.setOnItemClickListener((parent, view1, position, id) -> {
+                        groupSelector.setText(groupAdapter.getItem(position));
+                        groupSelected = groupAdapter.getItem(position);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString(getString(R.string.saved_group),
+                                groupAdapter.getItem(position));
+                        editor.apply();
+                        timeTableViewModel.groupChanged(groupSelected);
+                        Log.i("GROUP_SELECTED", groupSelected);
+                        groupSelectionDialog.dismiss();
+                    });
+                }
         );
     }
 

@@ -9,17 +9,18 @@ import androidx.room.Transaction;
 
 import com.example.miit_application.data.model.Day;
 import com.example.miit_application.data.model.DayWithLessons;
+import com.example.miit_application.data.model.Lesson;
 
 import java.util.List;
 
 @Dao
 public interface DayDao {
-    @Insert
-    void insertDay(Day day);
     @Transaction
     @Query("SELECT * FROM day_table WHERE odd=:isOdd")
     List<DayWithLessons> getDayWithLessonsByOdd(boolean isOdd);
-    @Query("DELETE FROM day_table")
-    void deleteDays();
+    @Insert
+    void insertLessons(List<Lesson> lesson);
 
+    @Query("DELETE FROM lesson_table")
+    void deleteLessons();
 }

@@ -49,7 +49,8 @@ public class Lesson extends TimeTableItem {
                   String auditoryNumber,
                   String lessonType,
                   String firstTeacher,
-                  String secondTeacher
+                  String secondTeacher,
+                  Long dayId
     ) {
         this.number = number;
         this.startEndTiming = startEndTiming;
@@ -58,6 +59,7 @@ public class Lesson extends TimeTableItem {
         this.lessonType = lessonType;
         this.firstTeacher = firstTeacher;
         this.secondTeacher = secondTeacher;
+        this.dayId = dayId;
     }
 
     public Lesson(Long id, int number, String startEndTiming, String lessonName, String auditoryNumber, String lessonType, String firstTeacher, String secondTeacher, Long dayId) {
@@ -150,5 +152,20 @@ public class Lesson extends TimeTableItem {
             return 3;
         }
         return 1;
+    }
+
+    @Override
+    public String toString() {
+        return "Lesson{" +
+                "id=" + id +
+                ", number=" + number +
+                ", startEndTiming='" + startEndTiming + '\'' +
+                ", lessonName='" + lessonName + '\'' +
+                ", auditoryNumber='" + auditoryNumber + '\'' +
+                ", lessonType='" + lessonType + '\'' +
+                ", firstTeacher='" + firstTeacher + '\'' +
+                ", secondTeacher='" + secondTeacher + '\'' +
+                ", dayId=" + dayId +
+                '}';
     }
 }
