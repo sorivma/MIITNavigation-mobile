@@ -215,7 +215,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:layout_marginStart="16dp"
-                    android:text="Поможет новым студентам (и не только!) проще ориентироваться в кампусе университета и ответит на самые важные вопросы (где поесть?)"
+                    android:text="Поможет новым студентам (и не только!) проще ориентироваться в кампусе университета и ответит на самые важные вопросы (где поесть?)."
                     android:textColor="@color/miit_blue"
                     android:textSize="14sp"/>
 
