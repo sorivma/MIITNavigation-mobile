@@ -100,7 +100,7 @@ public class TimeTableRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 oneTeacherViewHolder.timing.setText(footerModelOne.getStartEndTiming());
                 oneTeacherViewHolder.lessonName.setText(footerModelOne.getLessonName());
                 oneTeacherViewHolder.auditory.setText(footerModelOne.getAuditoryNumber());
-                oneTeacherViewHolder.lessonName.setText(footerModelOne.getLessonName());
+                oneTeacherViewHolder.lessonType.setText(footerModelOne.getLessonType());
                 oneTeacherViewHolder.firstTeacher.setText(footerModelOne.getFirstTeacher());
                 break;
             default:

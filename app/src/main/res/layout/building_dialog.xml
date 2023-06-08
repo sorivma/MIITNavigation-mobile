@@ -8,12 +8,13 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:background="@android:color/white"
+    android:layout_centerHorizontal="true"
     >
 
     <!-- Text view to show the text Select course-->
     <TextView
         android:id="@+id/building_name"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -25,6 +26,13 @@
         android:layout_height="match_parent"
         android:textSize="20sp"
         android:textStyle="bold"
+        />
+
+    <ImageView
+        android:id="@+id/building_image"
+        android:layout_width="match_parent"
+        android:scaleType="centerCrop"
+        android:layout_height="300dp"
         />
 
 </LinearLayout>

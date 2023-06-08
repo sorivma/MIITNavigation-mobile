@@ -8,11 +8,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.miit_application.R;
 import com.yandex.mapkit.Animation;
@@ -21,23 +22,24 @@ import com.yandex.mapkit.geometry.Circle;
 import com.yandex.mapkit.geometry.Point;
 import com.yandex.mapkit.map.CameraPosition;
 import com.yandex.mapkit.map.CircleMapObject;
-import com.yandex.mapkit.map.MapObject;
 import com.yandex.mapkit.map.MapObjectCollection;
 import com.yandex.mapkit.map.MapObjectTapListener;
-import com.yandex.mapkit.map.PlacemarkMapObject;
 import com.yandex.mapkit.mapview.MapView;
-import com.yandex.runtime.ui_view.ViewProvider;
 
 public class MapFragment extends Fragment {
     public MapView mapView;
     private MapObjectCollection mapObjects;
+    private CameraPosition miitCameraPosition;
+    private MapObjectTapListener mapObjectTapListener;
 
     private class TapedMapObjectInfoHolder{
         private String name;
         private String number;
-        public TapedMapObjectInfoHolder(String buildingNumber, String buildingName) {
+        private int imageId;
+        public TapedMapObjectInfoHolder(String buildingNumber, String buildingName, int imageName) {
             this.name = buildingName;
             this.number = buildingNumber;
+            this.imageId = imageName;
         }
 
         public String getName() {
@@ -46,6 +48,10 @@ public class MapFragment extends Fragment {
 
         public String getNumber() {
             return number;
+        }
+
+        public int getImageId() {
+            return imageId;
         }
     }
 
@@ -67,7 +73,7 @@ public class MapFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         mapView = (MapView) view.findViewById(R.id.map);
         mapView.getMap().setZoomGesturesEnabled(true);
-        CameraPosition miitCameraPosition = new CameraPosition(new Point(55.788198,
+        miitCameraPosition = new CameraPosition(new Point(55.788198,
                 37.606859), 16.5f, 0.0f,
                 0.0f);
         Animation transferAnimation = new Animation(Animation.Type.LINEAR, 0);
@@ -78,7 +84,7 @@ public class MapFragment extends Fragment {
         );
         mapObjects = mapView.getMap().getMapObjects().addCollection();
 
-        final MapObjectTapListener mapObjectTapListener = (mapObject, point) -> {
+        mapObjectTapListener = (mapObject, point) -> {
             TapedMapObjectInfoHolder infoHolder =
                     (TapedMapObjectInfoHolder) mapObject.getUserData();
             Dialog showDataDialog = new Dialog(getContext());
@@ -87,6 +93,10 @@ public class MapFragment extends Fragment {
             showDataDialog.show();
             TextView buildingName = showDataDialog.findViewById(R.id.building_name);
             TextView buildingNumber = showDataDialog.findViewById(R.id.building_number);
+            ImageView imageView = showDataDialog.findViewById(R.id.building_image);
+            Log.d("MAP DEBUG", String.valueOf(infoHolder.getImageId()));
+            imageView.setImageResource(infoHolder.getImageId());
+
             buildingName.setText(infoHolder.getName());
             buildingNumber.setText(infoHolder.getNumber());
             return true;
@@ -96,55 +106,64 @@ public class MapFragment extends Fragment {
                 new Point(55.788001, 37.608018),
                 mapObjectTapListener,
                 new TapedMapObjectInfoHolder("ГУК-1",
-                        "Институт управления и цифровых технологий")
+                        "Институт управления и цифровых технологий",
+                        R.drawable.guk_1)
         );
         createClickablePlaceMark(
                 new Point(55.788269, 37.609509),
                 mapObjectTapListener,
                 new TapedMapObjectInfoHolder("ГУК-10",
-                        "Административный корпус")
+                        "Административный корпус",
+                        R.drawable.guk_1)
         );
         createClickablePlaceMark(
                 new Point(55.788525, 37.608886),
                 mapObjectTapListener,
                 new TapedMapObjectInfoHolder("ГУК-8",
-                        "Гуманитарный институт")
+                        "Гуманитарный институт",
+                        R.drawable.guk_8)
         );
         createClickablePlaceMark(
                 new Point(55.788363, 37.607673),
                 mapObjectTapListener,
-                new TapedMapObjectInfoHolder("ГУК-15",
-                        "Дом физики")
+                new TapedMapObjectInfoHolder("ГУК-14",
+                        "Дом физики",
+                        R.drawable.guk_15)
         );
         createClickablePlaceMark(
                 new Point(55.787533, 37.606999),
                 mapObjectTapListener,
                 new TapedMapObjectInfoHolder("ГУК-5",
-                        "Дом химии")
+                        "Дом химии",
+                        R.drawable.guk_5)
         );
         createClickablePlaceMark(
                 new Point(55.787806, 37.606379),
                 mapObjectTapListener,
                 new TapedMapObjectInfoHolder("ГУК-6",
-                        "Юридический институт")
+                        "Юридический институт",
+                        R.drawable.guk_6)
         );
         createClickablePlaceMark(
                 new Point(55.788358, 37.606137),
                 mapObjectTapListener,
                 new TapedMapObjectInfoHolder("ГУК-2",
-                        "Институт транспортной техники и систем управления")
+                        "Институт транспортной техники и систем управления",
+                        R.drawable.guk_2)
         );
         createClickablePlaceMark(
                 new Point(55.787665, 37.604295),
                 mapObjectTapListener,
                 new TapedMapObjectInfoHolder("ГУК-3",
-                        "Институт экономики и финансов")
+                        "Институт экономики и финансов",
+                        R.drawable.guk_3)
         );
         createClickablePlaceMark(
                 new Point(55.789051, 37.605194),
                 mapObjectTapListener,
                 new TapedMapObjectInfoHolder("ГУК-4",
-                        "Институт транспортной техники и систем управления")
+                        "Институт транспортной техники и систем управления",
+                        R.drawable.guk_4)
         );
 
     }
@@ -170,6 +189,7 @@ public class MapFragment extends Fragment {
         CircleMapObject circle = mapObjects.addCircle(
                 new Circle(point,10), Color.BLUE,2,Color.BLUE
         );
+
         circle.setUserData(infoHolder);
         circle.addTapListener(mapTapListener);
     }

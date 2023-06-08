@@ -2,6 +2,8 @@ package com.example.miit_application.utils;
 
 import android.util.Log;
 
+import androidx.room.util.StringUtil;
+
 import com.example.miit_application.data.api.pojo.LessonPojo;
 import com.example.miit_application.data.model.Lesson;
 
@@ -44,6 +46,10 @@ public class Converter {
             String auditoryNumber = "";
             if (lessonPojo.getAuditorium() != null){
                 auditoryNumber = lessonPojo.getAuditorium().getAuditoriumNumber();
+                String[] auditoryParts = auditoryNumber.split("Аудитория");
+                if (auditoryParts.length > 2){
+                    auditoryNumber = "Аудитории" + auditoryParts[1] + "," + auditoryParts[2];
+                }
             }
 
             String startTiming = lessonPojo.getTime().getTimeStart();
