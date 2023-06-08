@@ -23,6 +23,6 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.miit_application.screens.settings.SettingsFragment"
-        android:label="Настройки"
+        android:label="Информация"
         tools:layout="@layout/fragment_settings" />
 </navigation>

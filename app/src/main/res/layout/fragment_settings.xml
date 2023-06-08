@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,4 +7,231 @@
     tools:context=".screens.settings.SettingsFragment">
 
     <!-- TODO: Update blank fragment layout -->
-</FrameLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:src="@drawable/official_rut"
+                    android:scaleType="centerCrop"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginStart="16dp"
+                    android:text="РУТ (МИИТ) — официальный сайт"
+                    android:textColor="@color/miit_blue"
+                    android:textStyle="bold"
+                    android:textSize="20sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginStart="16dp"
+                    android:text="Официальный сайт Российского университета транспорта. Содержит информацию об университете, поступлении, обучении и научной деятельности организации. "
+                    android:textColor="@color/miit_blue"
+                    android:textSize="14sp"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Перейти"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    app:cornerRadius="15dp"
+                    android:backgroundTint="@color/miit_blue"
+                    app:strokeColor="#55A6D3"
+                    app:rippleColor="#55A6D3"
+                    android:elevation="20dp"
+                    android:translationZ="10dp"/>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:src="@drawable/vk"
+                    android:scaleType="centerCrop"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginStart="16dp"
+                    android:text="РУТ (МИИТ) | Российский университет транспорта"
+                    android:textColor="@color/miit_blue"
+                    android:textStyle="bold"
+                    android:textSize="20sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginStart="16dp"
+                    android:text="Официальная группа в социальной сети VK. Здесь публикуются самые актуальные новости, связанные с университетской деятельностьью."
+                    android:textColor="@color/miit_blue"
+                    android:textSize="14sp"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Перейти"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    app:cornerRadius="15dp"
+                    android:backgroundTint="@color/miit_blue"
+                    app:strokeColor="#55A6D3"
+                    app:rippleColor="#55A6D3"
+                    android:elevation="20dp"
+                    android:translationZ="10dp"/>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:src="@drawable/freshman"
+                    android:scaleType="centerCrop"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginStart="16dp"
+                    android:text="Навигатор первокурсника"
+                    android:textColor="@color/miit_blue"
+                    android:textStyle="bold"
+                    android:textSize="20sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginStart="16dp"
+                    android:text="Содержит самую важную и полезную информацию, которая поможет первокурсникам (и не только) проще ориентироваться в университете."
+                    android:textColor="@color/miit_blue"
+                    android:textSize="14sp"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Перейти"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    app:cornerRadius="15dp"
+                    android:backgroundTint="@color/miit_blue"
+                    app:strokeColor="#55A6D3"
+                    app:rippleColor="#55A6D3"
+                    android:elevation="20dp"
+                    android:translationZ="10dp"/>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginHorizontal="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/starter_pack" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginStart="16dp"
+                    android:text="RUT Starter Pack"
+                    android:textColor="@color/miit_blue"
+                    android:textStyle="bold"
+                    android:textSize="20sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginStart="16dp"
+                    android:text="Поможет новым студентам (и не только!) проще ориентироваться в кампусе университета и ответит на самые важные вопросы (где поесть?)"
+                    android:textColor="@color/miit_blue"
+                    android:textSize="14sp"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Перейти"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    app:cornerRadius="15dp"
+                    android:backgroundTint="@color/miit_blue"
+                    app:strokeColor="#55A6D3"
+                    app:rippleColor="#55A6D3"
+                    android:elevation="20dp"
+                    android:translationZ="10dp"/>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+</ScrollView>

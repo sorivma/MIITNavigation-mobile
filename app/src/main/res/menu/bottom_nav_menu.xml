@@ -9,7 +9,7 @@
     <item android:title="Карта"
         android:icon="@drawable/baseline_map_24"
         android:id="@+id/mapFragment"/>
-    <item android:title="Настройки"
-        android:icon="@drawable/baseline_settings_24"
+    <item android:title="Информация"
+        android:icon="@drawable/baseline_info_24"
         android:id="@+id/settingsFragment"/>
 </menu>

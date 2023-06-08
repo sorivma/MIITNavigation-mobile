@@ -3,7 +3,7 @@
     <string name="map">Карта</string>
     <string name="news">Новости</string>
     <string name="timetable">Расписание</string>
-    <string name="settings">Настройки</string>
+    <string name="information">Информация</string>
     <string name="saved_group" />
 
 </resources>
