@@ -82,6 +82,7 @@ public class MapFragment extends Fragment {
             TapedMapObjectInfoHolder infoHolder =
                     (TapedMapObjectInfoHolder) mapObject.getUserData();
             Dialog showDataDialog = new Dialog(getContext());
+            
             showDataDialog.setContentView(R.layout.building_dialog);
             showDataDialog.show();
             TextView buildingName = showDataDialog.findViewById(R.id.building_name);

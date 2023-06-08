@@ -122,19 +122,6 @@
         app:layout_constraintTop_toBottomOf="@+id/teacher_1" />
 
     <TextView
-        android:layout_width="220dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:gravity="center"
-        android:text="УВП-211, УВП-212, УВП-213"
-        android:textColor="@color/miit_blue"
-        app:layout_constraintEnd_toEndOf="@+id/lesson_name"
-        app:layout_constraintHorizontal_bias="0.904"
-        app:layout_constraintStart_toEndOf="@+id/auditory_number"
-        app:layout_constraintStart_toStartOf="@+id/lesson_name"
-        app:layout_constraintTop_toBottomOf="@+id/lesson_name" />
-
-    <TextView
         android:id="@+id/lesson_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

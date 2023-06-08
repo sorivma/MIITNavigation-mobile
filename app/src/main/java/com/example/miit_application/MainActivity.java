@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
         String MAP_API_KEY = "5b0d534c-3c2b-4c4c-a218-5569d264e7bc";
         MapKitFactory.setApiKey(MAP_API_KEY);
         setContentView(R.layout.activity_main);
+        setTheme(R.style.Theme_MIIT_Application);
 
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
